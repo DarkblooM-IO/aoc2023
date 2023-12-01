@@ -18,9 +18,18 @@ function LinesFrom(file)
   return lines
 end
 
+function FindForward(haystack, needles, map)
+  for i = 1, #needles do
+    if haystack:sub(#haystack - #needles + 2, #haystack) == needles[i] then
+      return map[i]
+    end
+  end
+  return nil
+end
+
 local lines = LinesFrom("wordlist.txt")
 local result = 0
-local numbers = {
+local needles = {
   "one",
   "two",
   "three",
@@ -29,16 +38,28 @@ local numbers = {
   "six",
   "seven",
   "eight",
-  "nine"
+  "nine",
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9"
+}
+local digits = {
+  1, 2, 3, 4, 5, 6, 7, 8, 9,
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9
 }
 
 for _, line in pairs(lines) do
-  local buffer = {}
-  for i = 1, #numbers do
-    local fst, _ = line:find(numbers[i])
-    local _, lst = line:find(".*"..numbers[i])
-    if fst and lst then
-      buffer[#buffer + 1] = i
-    end
+  local fst
+  for i = 1, #line do
+    fst = FindForward(line:sub(1, i), needles, digits)
+    if fst ~= nil then break end
   end
+  print(line, fst and line:sub(fst, #line) or nil)
 end
