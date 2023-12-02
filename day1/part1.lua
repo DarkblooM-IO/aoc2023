@@ -13,7 +13,7 @@ function LinesFrom(file)
   return lines
 end
 
-local lines  = LinesFrom("wordlist.txt")
+local lines  = LinesFrom("input.txt")
 local result = 0
 
 for _, v in pairs(lines) do -- loop through every line

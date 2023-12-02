@@ -18,7 +18,7 @@ function LinesFrom(file)
   return lines
 end
 
-local lines = LinesFrom("wordlist.txt")
+local lines = LinesFrom("input.txt")
 local result = 0
 local numbers = {
   "one",
