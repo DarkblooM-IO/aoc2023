@@ -13,33 +13,34 @@ function LinesFrom(file)
   if not FileExists(file) then return {} end
   local lines = {}
   for line in io.lines(file) do
-    lines[#lines + 1] = line
+    lines[#lines+1] = line
   end
   return lines
 end
 
-function Split(str, sep)
-  if sep == nil then sep = "%s" end
-  local t = {}
-  for s in str:gmatch("([^"..sep.."]+)") do
-    t[#t+1] = s
-  end
-  return t
-end
-
 local lines  = LinesFrom("input.txt")
-local colors = {"red", "blue", "green"}
+local colors = {"red", "green", "blue"}
+local possible = {}
+local result = 0
 
 for _, line in pairs(lines) do
-  local id = line:match("^Game (%d+):")
+  local id = tonumber(line:match("^Game (%d+):"))
   local max = {}
   for i = 1, #colors do
     local matches = line:gmatch("(%d+) "..colors[i])
-    max[colors[i]] = math.max(matches)
+    local nums = {}
+    for v in matches do
+      nums[#nums+1] = tonumber(v)
+    end
+    max[colors[i]] = math.max(table.unpack(nums))
   end
-  io.write(line.." => ")
-  for k, v in pairs(max) do
-    io.write(k..":"..v().." ")
+  if max["red"] >= 12 and max["green"] >= 13 and max["blue"] >= 14 then
+    possible[#possible+1] = id
   end
-  print("\n\n")
 end
+
+for i = 1, #possible do
+  result = result + possible[i]
+end
+
+print(result)
