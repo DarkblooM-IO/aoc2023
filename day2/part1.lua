@@ -1,8 +1,3 @@
-
--- --------------
--- | unfinished |
--- --------------
-
 function FileExists(file)
   local f = io.open(file, "rb")
   if f then f:close() end
@@ -34,7 +29,7 @@ for _, line in pairs(lines) do
     end
     max[colors[i]] = math.max(table.unpack(nums))
   end
-  if max["red"] >= 12 and max["green"] >= 13 and max["blue"] >= 14 then
+  if max["red"] <= 12 and max["green"] <= 13 and max["blue"] <= 14 then
     possible[#possible+1] = id
   end
 end
