@@ -1,8 +1,3 @@
-
--- --------------
--- | unfinished |
--- --------------
-
 function FileExists(file)
   local f = io.open(file, "rb")
   if f then f:close() end
@@ -22,17 +17,19 @@ local lines = LinesFrom("input.txt")
 local result = 0
 
 for i, line in pairs(lines) do
-  local digits = line:gmatch("%d+")
+  local needle = "%d+"
+  local offset = 0
   local valid = {}
 
-  for m in digits do
-    local x, y = line:find(m)
+  while true do
+    local x, y = line:find(needle, offset)
+
+    if not x then break end
 
     x = x - 1
     y = y + 1
 
     local found = false
-    local val = 0
     local top = math.max(1, i-1)
     local bot = math.min(#lines, i+1)
 
@@ -46,9 +43,12 @@ for i, line in pairs(lines) do
     if found then
       valid[#valid+1] = tonumber(line:sub(x, y))
     end
+
+    offset = y + 1
   end
 
   for j = 1, #valid do
+    print(valid[j])
     result = result + valid[j]
   end
 end
