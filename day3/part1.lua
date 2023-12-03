@@ -17,12 +17,11 @@ local lines = LinesFrom("input.txt")
 local result = 0
 
 for i, line in pairs(lines) do
-  local needle = "%d+"
   local offset = 0
   local valid = {}
 
   while true do
-    local x, y = line:find(needle, offset)
+    local x, y = line:find("%d+", offset)
 
     if not x then break end
 
@@ -48,7 +47,6 @@ for i, line in pairs(lines) do
   end
 
   for j = 1, #valid do
-    print(valid[j])
     result = result + valid[j]
   end
 end
