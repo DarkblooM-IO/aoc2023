@@ -39,7 +39,7 @@ end
 local lines = LinesFrom("input.txt")
 local total = 0
 
-for _, line in pairs(lines) do
+for n, line in pairs(lines) do
   local nums = ExtractNumbers(line:sub(9, #line))
   local cardValue = 0
 
